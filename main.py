@@ -16,11 +16,19 @@ from event import Event
 
 # TODO: Move these somewhere more appropriate (drawable?)
 
-def load_level(num):
-    Config.config_level(num)
+def load_level(source, level_index=0):
+    Config.config_level(source, level_index)
     Drawable.recreateWindow()
-    Tile.load_level(num)
-    Character.load_characters(num)
+    Tile.load_level(source, level_index)
+    Character.load_characters(source, level_index)
+
+# Example usage:
+# For JSON:
+# LEVELS = [('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 0), ('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 1)]
+# For CSV:
+# LEVELS = [1, 2]
+
+LEVELS = [('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 0)]  # or [1, 2] for CSV
 
 KEYMAP = {
     'Left':     'Player.main.move(-1, 0)',
@@ -32,14 +40,15 @@ KEYMAP = {
     'q':        'exit(0)'
 }
 
-LEVELS = [1, 2]
-
 
 def main():
     frame_duration = 1.0/60.0
 
     for level in LEVELS:
-        load_level(level)
+        if isinstance(level, tuple):
+            load_level(level[0], level[1])
+        else:
+            load_level(level)
 
         while not Player.main.at_exit():
             frame_start_time = time.time()
