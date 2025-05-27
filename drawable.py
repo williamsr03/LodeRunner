@@ -11,7 +11,7 @@ class Drawable(object):
         if Drawable._window:
             Drawable._window.close()
         Drawable._window = GraphWin("LodeRunner", Config.WINDOW_WIDTH+20, Config.WINDOW_HEIGHT+20)
-        Drawable._window.setBackground('white')
+        Drawable._window.setBackground('black')
 
     @staticmethod
     def lost():
