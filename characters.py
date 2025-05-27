@@ -175,7 +175,7 @@ class PathFinder:
     def run(start_pos):
         """
         Returns the optimal move from start_pos to get to the Player.
-        Returns None if no valid paths exist.
+        If no valid path exists, returns the move that gets closer to the player (even if not valid).
         """
         PathFinder.tiles = [[False for y in range(Config.LEVEL_HEIGHT)] for x in range(Config.LEVEL_WIDTH)]
 
@@ -200,7 +200,17 @@ class PathFinder:
             for child in remove_list:
                 children.remove(child)
 
-        return None
+        px, py = Player.main.pos()
+        best_move = None
+        min_dist = float('inf')
+        for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
+            nx, ny = x + dx, y + dy
+            dist = abs(nx - px) + abs(ny - py)
+            if 0 <= nx < Config.LEVEL_WIDTH and 0 <= ny < Config.LEVEL_HEIGHT:
+                if dist < min_dist:
+                    min_dist = dist
+                    best_move = (dx, dy)
+        return best_move
 
     @staticmethod
     def valid_neighbors(pos, last_pos):
