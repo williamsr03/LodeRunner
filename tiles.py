@@ -117,6 +117,13 @@ class Brick(Tile):
                       'diggable':   True}
         super(Brick, self).__init__(coord, 'new_block.gif', properties)
 
+class solid_Brick(Tile):
+    def __init__(self, coord):
+        properties = {'passable':   False,
+                      'standable':  True,
+                      'diggable':   False}
+        super(solid_Brick, self).__init__(coord, 'new_solidBlock.gif', properties)
+
 class Ladder(Tile):
     def __init__(self, coord, hidden=False):
         properties = {'standable':  True,
@@ -165,7 +172,7 @@ Tile.tile_map = {
         '0': Ladder,
         '1': Rope,
         '2': Empty,
-        '3': Brick,
+        '3': solid_Brick,
         #'4': Enemy,
         '5': Gold,
         #'6': Spawn,
