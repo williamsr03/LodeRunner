@@ -41,13 +41,13 @@ def main():
 
     level_file = sys.argv[1]
     # Change default level_index from 0 to 1
-    level_index = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+    level_index = int(sys.argv[2]) if len(sys.argv) > 2 else 0
 
     # Support both CSV and JSON
     if level_file.endswith('.json'):
-        LEVELS = [(level_file, level_index)]
+        LEVELS = [(level_file, level_index - 1)]
     else:
-        LEVELS = [int(level_index) if level_index else 1]
+        LEVELS = [int(level_index) if level_index else 0]
 
     for level in LEVELS:
         if isinstance(level, tuple):
