@@ -6,11 +6,14 @@ class Tile(Drawable):
     level = []
 
     tile_map = {
-        # 0: Empty,
-        # 1: Brick,
-        # 2: Ladder,
-        # 3: Rope,
-        # 4: Gold
+        #'0': Ladder,
+        #'1': Rope,
+        #'2': Empty,
+        #'3': Brick,
+        #'4': Enemy,
+        #'5': Gold,
+        #'6': Spawn,
+        #'7': Brick
     }
 
     _hidden_tiles = []
@@ -112,20 +115,20 @@ class Brick(Tile):
         properties = {'passable':   False,
                       'standable':  True,
                       'diggable':   True}
-        super(Brick, self).__init__(coord, 'brick.gif', properties)
+        super(Brick, self).__init__(coord, 'new_block.gif', properties)
 
 class Ladder(Tile):
     def __init__(self, coord, hidden=False):
         properties = {'standable':  True,
                       'climbable':  True,
                       'grabbable': True}
-        super(Ladder, self).__init__(coord, 'ladder.gif', properties, hidden)
+        super(Ladder, self).__init__(coord, 'new_ladder.gif', properties, hidden)
 
 
 class Rope(Tile):
     def __init__(self, coord):
         properties = {'grabbable':  True}
-        super(Rope, self).__init__(coord, 'rope.gif', properties)
+        super(Rope, self).__init__(coord, 'new_rope.gif', properties)
 
 
 class Gold(Tile):
@@ -138,7 +141,7 @@ class Gold(Tile):
     def __init__(self, coord):
         Gold._num_gold += 1
         properties = {'takable': True}
-        super(Gold, self).__init__(coord, 'gold.gif', properties)
+        super(Gold, self).__init__(coord, 'new_gold.gif', properties)
 
     def take(self):
         Gold._num_gold -= 1
@@ -158,12 +161,16 @@ class HiddenLadder(Ladder):
         HiddenLadder._hidden.append(self)
 
 
-Tile.tile_map = {'0': Empty,
-                 '1': Brick,
-                 '2': Ladder,
-                 '3': Rope,
-                 '4': Gold,
-                 '5': HiddenLadder}
+Tile.tile_map = {
+        '0': Ladder,
+        '1': Rope,
+        '2': Empty,
+        '3': Brick,
+        #'4': Enemy,
+        '5': Gold,
+        #'6': Spawn,
+        '7': Brick
+        }
 
 
 if __name__ == "__main__":
