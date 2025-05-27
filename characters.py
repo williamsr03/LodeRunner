@@ -36,8 +36,8 @@ class Character (Drawable):
                     raise ValueError("JSON level missing 'scene' key")
                 for row_num, row in enumerate(scene):
                     for col, value in enumerate(row):
-                        if value in char_map:
-                            char_map[value](col, row_num)
+                        if str(value) in char_map:
+                            char_map[str(value)](col, row_num)
         else:
             raise ValueError("source must be a level number or a .json file path")
 
