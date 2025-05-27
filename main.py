@@ -5,6 +5,7 @@ By: Bonnie Ishiguro and Nick Francisci
 for Game Programming: Level 4
 """
 
+import sys
 import time
 from config import Config
 from graphics import *
@@ -14,21 +15,11 @@ from characters import *
 from event import Event 
 
 
-# TODO: Move these somewhere more appropriate (drawable?)
-
 def load_level(source, level_index=0):
     Config.config_level(source, level_index)
     Drawable.recreateWindow()
     Tile.load_level(source, level_index)
     Character.load_characters(source, level_index)
-
-# Example usage:
-# For JSON:
-# LEVELS = [('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 0), ('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 1)]
-# For CSV:
-# LEVELS = [1, 2]
-
-LEVELS = [("C:/Users/williamsr/Documents/GitHub/MarioDiffusion/LR_LevelsAndCaptions-regular.json", 0)]  # or [1, 2] for CSV
 
 KEYMAP = {
     'Left':     'Player.main.move(-1, 0)',
@@ -40,9 +31,23 @@ KEYMAP = {
     'q':        'exit(0)'
 }
 
-
 def main():
     frame_duration = 1.0/60.0
+
+    # Get file and optional level index from command line
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <level_file> [level_index]")
+        sys.exit(1)
+
+    level_file = sys.argv[1]
+    # Change default level_index from 0 to 1
+    level_index = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+
+    # Support both CSV and JSON
+    if level_file.endswith('.json'):
+        LEVELS = [(level_file, level_index)]
+    else:
+        LEVELS = [int(level_index) if level_index else 1]
 
     for level in LEVELS:
         if isinstance(level, tuple):
@@ -50,7 +55,6 @@ def main():
         else:
             load_level(level)
 
-        # while not Player.main.at_exit():
         while not Gold.all_taken():
             frame_start_time = time.time()
 
@@ -68,8 +72,6 @@ def main():
                     for baddie in Baddie.baddies:
                         baddie.redraw()
                     Config.hidden_flag = True
-
-            # baddies should probably move here
 
             frame_time = time.time() - frame_start_time
             if frame_time < frame_duration:
