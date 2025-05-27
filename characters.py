@@ -9,18 +9,37 @@ class Character (Drawable):
     char_map = {}
 
     @staticmethod
-    def load_characters(num):
+    def load_characters(source, level_index=0):
         for baddie in Baddie.baddies:
             baddie.die()
         Baddie.baddies = []
-        with open(os.path.join('levels', 'level{}.csv').format(num)) as file_data:
-            row_num = 0
-            for row in csv.reader(file_data):
-                for col, value in enumerate(row):
-                    if value in char_map:
-                        char_map[value](col, row_num)
-                row_num += 1
 
+        # If source is an int, treat as CSV level number
+        if isinstance(source, int):
+            file_path = os.path.join('levels', f'level{source}.csv')
+            with open(file_path) as file_data:
+                row_num = 0
+                for row in csv.reader(file_data):
+                    for col, value in enumerate(row):
+                        if value in char_map:
+                            char_map[value](col, row_num)
+                    row_num += 1
+
+        # If source is a JSON file path, use JSON
+        elif isinstance(source, str) and source.endswith('.json'):
+            import json
+            with open(source, 'r') as f:
+                levels = json.load(f)
+                # Expecting a 'scene' key with a 2D array of tile codes
+                scene = levels[level_index].get('scene')
+                if scene is None:
+                    raise ValueError("JSON level missing 'scene' key")
+                for row_num, row in enumerate(scene):
+                    for col, value in enumerate(row):
+                        if value in char_map:
+                            char_map[value](col, row_num)
+        else:
+            raise ValueError("source must be a level number or a .json file path")
 
     def __init__(self, x, y, img_path=None):
         super(Character, self).__init__((x, y), img_path)
