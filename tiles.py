@@ -1,4 +1,5 @@
 import csv, util, os
+import json
 from drawable import Drawable
 
 class Tile(Drawable):
@@ -15,13 +16,37 @@ class Tile(Drawable):
     _hidden_tiles = []
 
     @staticmethod
-    def load_level(num):
-        with open(os.path.join('levels', 'level{}.csv').format(num)) as file_data:
-            Tile.level = []
-            row_num = 0
-            for row in csv.reader(file_data):
-                Tile.level.extend([Tile.tile_map[elem]((index, row_num)) if elem in Tile.tile_map else Empty((index, row_num)) for index, elem in enumerate(row) ])
-                row_num += 1
+    def load_level(source, level_index=0):
+        Tile.level = []
+        row_num = 0
+
+        # If source is an int, treat as CSV level number
+        if isinstance(source, int):
+            file_path = os.path.join('levels', f'level{source}.csv')
+            with open(file_path) as file_data:
+                for row in csv.reader(file_data):
+                    Tile.level.extend([
+                        Tile.tile_map[elem]((index, row_num)) if elem in Tile.tile_map else Empty((index, row_num))
+                        for index, elem in enumerate(row)
+                    ])
+                    row_num += 1
+
+        # If source is a JSON file path, use JSON
+        elif isinstance(source, str) and source.endswith('.json'):
+            with open(source, 'r') as f:
+                levels = json.load(f)
+                # Expecting a 'scene' key with a 2D array of tile codes
+                scene = levels[level_index].get('scene')
+                if scene is None:
+                    raise ValueError("JSON level missing 'scene' key")
+                for row in scene:
+                    Tile.level.extend([
+                        Tile.tile_map.get(str(elem), Empty)((index, row_num))
+                        for index, elem in enumerate(row)
+                    ])
+                    row_num += 1
+        else:
+            raise ValueError("source must be a level number or a .json file path")
 
     @staticmethod
     def query(coord, property):
