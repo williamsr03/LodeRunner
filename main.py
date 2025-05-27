@@ -11,7 +11,7 @@ from graphics import *
 from drawable import Drawable
 from tiles import Tile, Gold, HiddenLadder
 from characters import *
-from event import Event
+from event import Event 
 
 
 # TODO: Move these somewhere more appropriate (drawable?)
@@ -28,7 +28,7 @@ def load_level(source, level_index=0):
 # For CSV:
 # LEVELS = [1, 2]
 
-LEVELS = [('MarioDiffusion/LR_LevelsAndCaptions-regular.json', 0)]  # or [1, 2] for CSV
+LEVELS = [("C:/Users/williamsr/Documents/GitHub/MarioDiffusion/LR_LevelsAndCaptions-regular.json", 0)]  # or [1, 2] for CSV
 
 KEYMAP = {
     'Left':     'Player.main.move(-1, 0)',
@@ -50,7 +50,8 @@ def main():
         else:
             load_level(level)
 
-        while not Player.main.at_exit():
+        # while not Player.main.at_exit():
+        while not Gold.all_taken():
             frame_start_time = time.time()
 
             key = Drawable._window.checkKey()
