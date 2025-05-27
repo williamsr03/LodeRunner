@@ -94,11 +94,12 @@ class Player (Character):
     main = None
 
     def __init__(self, x, y):
-        super(Player, self).__init__(x, y, 't_android.gif')
+        super(Player, self).__init__(x, y, 'new_user.gif')
         Player.main = self
 
     def at_exit(self):
         return (self._y == 0)
+        #return False  # Exit condition is handled elsewhere
 
     def apply_move(self, dx, dy):
         super(Player, self).apply_move(dx, dy)
@@ -135,7 +136,7 @@ class Baddie (Character):
     baddies = []
 
     def __init__(self, x, y):
-        super(Baddie, self).__init__(x, y, 't_red.gif')
+        super(Baddie, self).__init__(x, y, 'new_enemy.gif')
         self.move_event = Event(self.move, 30, recurring=True)
         Baddie.baddies.append(self)
 
@@ -151,8 +152,8 @@ class Baddie (Character):
         Event.delete(self.move_event)
         Baddie.baddies.remove(self)
 
-char_map = {'P': Player,
-            'B': Baddie}
+char_map = {'6': Player,
+            '4': Baddie}
 
 class PathFinder:
     tiles = None
