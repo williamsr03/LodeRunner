@@ -205,8 +205,9 @@ class PathFinder:
         min_dist = float('inf')
         for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
             nx, ny = x + dx, y + dy
-            dist = abs(nx - px) + abs(ny - py)
+            #dist = abs(nx - px) + abs(ny - py)
             if 0 <= nx < Config.LEVEL_WIDTH and 0 <= ny < Config.LEVEL_HEIGHT:
+                dist = abs(nx - px) + abs(ny - py)
                 if dist < min_dist:
                     min_dist = dist
                     best_move = (dx, dy)
