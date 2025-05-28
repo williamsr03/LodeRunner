@@ -27,6 +27,7 @@ KEYMAP = {
     'Up':       'Player.main.move(0, -1)',
     'Down':     'Player.main.move(0, 1)',
     'a':        'Player.main.dig(-1)',
+    'x':        'Player.main.dig(0)',
     'z':        'Player.main.dig(1)',
     'q':        'exit(0)'
 }
@@ -78,5 +79,45 @@ def main():
                 time.sleep(frame_duration - frame_time)
         Drawable.won()
 
+def play_level(level_file, level_index=1):
+    """
+    Play a Lode Runner level from another script.
+    level_file: path to the level file (CSV or JSON)
+    level_index: 1-based index for JSON, or level number for CSV
+    """
+
+    frame_duration = 1.0/60.0
+    # Adjust index for JSON (1-based to 0-based)
+    if level_file.endswith('.json'):
+        LEVELS = [(level_file, level_index - 1)]
+    else:
+        LEVELS = [int(level_index) if level_index else 1]
+
+    for level in LEVELS:
+        if isinstance(level, tuple):
+            load_level(level[0], level[1])
+        else:
+            load_level(level)
+
+        while not Gold.all_taken():
+            frame_start_time = time.time()
+            key = Drawable._window.checkKey()
+            if key in KEYMAP:
+                eval(KEYMAP[key])
+            Event.update()
+            if not Config.hidden_flag:
+                if Gold.all_taken():
+                    HiddenLadder.showAll()
+                    Player.main.redraw()
+                    for baddie in Baddie.baddies:
+                        baddie.redraw()
+                    Config.hidden_flag = True
+            frame_time = time.time() - frame_start_time
+            if frame_time < frame_duration:
+                time.sleep(frame_duration - frame_time)
+        Drawable.won()
+
 if __name__ == '__main__':
-    main()
+    play_level(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 1)
+# If you want to run the game directly, uncomment the following line:
+    #main()
