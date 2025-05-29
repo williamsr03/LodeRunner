@@ -5,6 +5,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from LodeRunner.drawable import Drawable
 #from drawable import Drawable
+from  LodeRunner import util
 
 class Tile(Drawable):
     level = []
@@ -42,7 +43,8 @@ class Tile(Drawable):
         elif isinstance(source, str) and source.endswith('.json'):
             with open(source, 'r') as f:
                 levels = json.load(f)
-                # Expecting a 'scene' key with a 2D array of tile codes
+                if not (0 <= level_index < len(levels)):
+                    raise IndexError(f"Requested level_index {level_index} but only {len(levels)} levels available in {source}")
                 scene = levels[level_index].get('scene')
                 if scene is None:
                     raise ValueError("JSON level missing 'scene' key")
@@ -186,3 +188,9 @@ Tile.tile_map = {
 
 if __name__ == "__main__":
     Tile.load_level(1)
+
+    # After loading the level and before starting the game loop
+    spawn_coord = ... # get spawn coordinates from level
+    spawn_tile = Tile.tile_at(spawn_coord)
+    if not (spawn_tile.properties['standable'] or spawn_tile.properties['climbable'] or spawn_tile.properties['grabbable']):
+        print("Warning: Spawn is not on a valid tile! The player may fall or the game may crash.")
