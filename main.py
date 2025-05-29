@@ -5,8 +5,10 @@ By: Bonnie Ishiguro and Nick Francisci
 for Game Programming: Level 4
 """
 
+import os
 import sys
 import time
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from LodeRunner.config import Config
 from LodeRunner.graphics import *
 from LodeRunner.drawable import Drawable
@@ -79,7 +81,7 @@ def main():
                 time.sleep(frame_duration - frame_time)
         Drawable.won()
 
-def play_level(level_file, level_index=1):
+def play_lr_level(level_file, level_index=1):
     """
     Play a Lode Runner level from another script.
     level_file: path to the level file (CSV or JSON)
@@ -118,6 +120,6 @@ def play_level(level_file, level_index=1):
         Drawable.won()
 
 if __name__ == '__main__':
-    play_level(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 1)
+    play_lr_level(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 1)
 # If you want to run the game directly, uncomment the following line:
     #main()
