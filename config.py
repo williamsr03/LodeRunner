@@ -5,7 +5,7 @@ import sys
 
 class Config:
     LEVEL_WIDTH = 32
-    LEVEL_HEIGHT = 22
+    LEVEL_HEIGHT = 32
 
     CELL_SIZE = 24
     WINDOW_WIDTH = CELL_SIZE*LEVEL_WIDTH

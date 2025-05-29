@@ -1,17 +1,16 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-#from LodeRunner.drawable import Drawable
-#from LodeRunner.tiles import Tile, Empty
-#from LodeRunner.event import Event
-#import csv, os
-#from LodeRunner.config import Config
-
-from drawable import Drawable
-from tiles import Tile, Empty
-from event import Event
+from LodeRunner.drawable import Drawable
+from LodeRunner.tiles import Tile, Empty
+from LodeRunner.event import Event
 import csv, os
-from config import Config
+from LodeRunner.config import Config
+
+#from tiles import Tile, Empty
+#from event import Event
+import csv, os
+#from config import Config
 
 
 class Character (Drawable):

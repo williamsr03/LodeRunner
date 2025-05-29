@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 import sys
 import time
+# Needed for Mario Diffusion directory
 from LodeRunner.config import Config
 from LodeRunner.graphics import *
 from LodeRunner.drawable import Drawable
@@ -18,12 +19,13 @@ from LodeRunner.tiles import Tile, Gold, HiddenLadder
 from LodeRunner.characters import *
 from LodeRunner.event import Event 
 
-from config import Config
-from graphics import *
-from drawable import Drawable
-from tiles import Tile, Gold, HiddenLadder
-from characters import *
-from event import Event 
+# Needed for Lode Runner directory
+#from config import Config
+#from graphics import *
+#from drawable import Drawable
+#from tiles import Tile, Gold, HiddenLadder
+#from characters import *
+#from event import Event 
 
 
 def load_level(source, level_index=0):
