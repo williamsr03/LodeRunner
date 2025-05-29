@@ -1,5 +1,9 @@
 import csv, util, os
 import json
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#from LodeRunner.drawable import Drawable
 from drawable import Drawable
 
 class Tile(Drawable):
