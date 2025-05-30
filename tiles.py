@@ -59,7 +59,11 @@ class Tile(Drawable):
 
     @staticmethod
     def query(coord, property):
-        tile = Tile.level[util.index(*coord)]
+        idx = util.index(*coord)
+        if idx < 0 or idx >= len(Tile.level):
+            #print(f"Out of bounds access in Tile.query: coord={coord}, idx={idx}, level size={len(Tile.level)}")
+            return False  # or raise a more informative error
+        tile = Tile.level[idx]
         return tile.properties[property]
 
     @staticmethod
