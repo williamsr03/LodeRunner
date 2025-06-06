@@ -9,12 +9,12 @@ import os
 import sys
 import time
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from LodeRunner.config import Config
-from LodeRunner.graphics import *
-from LodeRunner.drawable import Drawable
-from LodeRunner.tiles import Tile, Gold, HiddenLadder
-from LodeRunner.characters import *
-from LodeRunner.event import Event 
+from loderunner.config import Config
+from loderunner.graphics import *
+from loderunner.drawable import Drawable
+from loderunner.tiles import Tile, Gold, HiddenLadder
+from loderunner.characters import *
+from loderunner.event import Event 
 
 
 def load_level(source, level_index=0):
