@@ -3,7 +3,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from loderunner.config import Config
-from LodeRunner.graphics import Image, Point, GraphWin, Text
+from loderunner.graphics import Image, Point, GraphWin, Text
 #from config import Config
 #from graphics import Image, Point, GraphWin, Text
 
