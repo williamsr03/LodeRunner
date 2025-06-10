@@ -112,10 +112,16 @@ class Tile(Drawable):
     def take(self):
         pass
 
+    def enemyTake(self):
+        pass
+
 
 class Empty(Tile):
     def __init__(self, coord):
         super(Empty, self).__init__(coord)
+    
+    def dropGold(self):
+        pass
 
 
 class Brick(Tile):
@@ -124,6 +130,9 @@ class Brick(Tile):
                       'standable':  True,
                       'diggable':   True}
         super(Brick, self).__init__(coord, 'new_block.gif', properties)
+    
+    def dropGold(self):
+        pass
 
 class solid_Brick(Tile):
     def __init__(self, coord):
@@ -132,6 +141,9 @@ class solid_Brick(Tile):
                       'diggable':   False}
         super(solid_Brick, self).__init__(coord, 'new_solidBlock.gif', properties)
 
+    def dropGold(self):
+        pass
+    
 class Ladder(Tile):
     def __init__(self, coord, hidden=False):
         properties = {'standable':  True,
@@ -160,6 +172,9 @@ class Gold(Tile):
 
     def take(self):
         Gold._num_gold -= 1
+        Tile.clear(self.coord)
+
+    def enemyTake(self):
         Tile.clear(self.coord)
 
 

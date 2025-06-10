@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from loderunner.drawable import Drawable
-from loderunner.tiles import Tile, Empty
+from loderunner.tiles import Tile, Empty, Gold
 from loderunner.event import Event
 import csv, os
 from loderunner.config import Config
@@ -89,9 +89,10 @@ class Character (Drawable):
     def fall(self):
         next_pos = (self._x, self._y+1)
 
-        if self._y < Config.LEVEL_HEIGHT:
+        if self._y+1 < Config.LEVEL_HEIGHT:
             if not Tile.query(next_pos, 'standable') and not Tile.query(self.pos(), 'grabbable'):
-                self.apply_move(0, 1)
+                #self.apply_move(0,0)
+                self.apply_move(0,1)
 
     def redraw(self):
         self.undraw()
@@ -150,10 +151,17 @@ class Baddie (Character):
 
     def move(self):
         move = PathFinder.run(self.pos())
+        last_pos = self.pos()
         if move:
             super(Baddie, self).move(*move)
+            Tile.tile_at(self.pos()).enemyTake()
+            # if self.fall():
+            #     if self.hasGold:
+            #         Tile.tile_at(last_pos).dropGold()
+            #         self.hasGold = False
         if self.pos() == Player.main.pos():
             Drawable.lost()
+        
 
     def die(self):
         self.undraw()

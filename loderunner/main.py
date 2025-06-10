@@ -29,7 +29,6 @@ KEYMAP = {
     'Up':       'Player.main.move(0, -1)',
     'Down':     'Player.main.move(0, 1)',
     'a':        'Player.main.dig(-1)',
-    'x':        'Player.main.dig(0)',
     'z':        'Player.main.dig(1)',
     'q':        'exit(0)'
 }
