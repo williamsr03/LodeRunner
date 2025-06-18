@@ -6,6 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from loderunner.drawable import Drawable
 from loderunner import util
 
+
 class Tile(Drawable):
     level = []
 
@@ -97,11 +98,7 @@ class Tile(Drawable):
                 gold_tile.image = gold_tile.canvas.create_image(
                     px, py, anchor='nw', image=gold_tile._img
                 )
-                print(f"Gold tile drawn at {coord} for enemy.")
-            else:
-                print("Gold tile has no canvas to draw on!")
-        else:
-            print(f"draw_gold_for_enemy: coord {coord} is out of bounds.")
+                #print(f"Gold tile drawn at {coord} for enemy.")
 
     def __init__(self, coord, img_path=None, properties={}, hidden=False):
         super(Tile, self).__init__(coord, img_path)
@@ -189,7 +186,7 @@ class Gold(Tile):
         Gold._num_gold += 1
         properties = {'takable': True}
         super(Gold, self).__init__(coord, 'new_gold.gif', properties)
-        print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
+        #print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
 
     def take(self):
         Gold._num_gold -= 1

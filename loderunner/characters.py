@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from loderunner.drawable import Drawable
-from loderunner.tiles import Tile, Empty, Gold
+from loderunner.tiles import *
 from loderunner.event import Event
 import csv, os
 from loderunner.config import Config
@@ -174,12 +174,13 @@ class Baddie (Character):
     def fall(self):
         # Check if falling into a dug hole (i.e., onto an Empty tile)
         below = (self._x, self._y + 1)
-        if 0 <= below[0] < Config.LEVEL_WIDTH and 0 <= below[1] < Config.LEVEL_HEIGHT:
-            if isinstance(Tile.tile_at(below), Empty) and not Tile.query(self.pos(), 'grabbable'):
+        position = (self._x, self._y)
+        if 0 <= below[0] < Config.LEVEL_WIDTH and 0 <= below[1] <= Config.LEVEL_HEIGHT:
+            if not Tile.query(below, 'standable') and not Tile.query(below, 'grabbable') and not Tile.query(position, 'grabbable'):
                 if self.carrying_gold:
                     Tile.draw_gold_for_enemy(self.last_tile)
                     self.carrying_gold = False
-                    print("Number of gold left:", Gold._num_gold)
+                    #print("Number of gold left:", Gold._num_gold)
         super().fall()
 
 char_map = {'6': Player,
