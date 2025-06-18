@@ -97,6 +97,7 @@ class Tile(Drawable):
                 gold_tile.image = gold_tile.canvas.create_image(
                     px, py, anchor='nw', image=gold_tile._img
                 )
+                print(f"Gold tile drawn at {coord} for enemy.")
             else:
                 print("Gold tile has no canvas to draw on!")
         else:
@@ -199,6 +200,7 @@ class Gold(Tile):
         # Remove the gold tile from the map, but do NOT decrement _num_gold
         Tile.level[util.index(*self.coord)].undraw()
         Tile.level[util.index(*self.coord)] = Empty(self.coord)
+        Gold._num_gold -= 1
 
 
 class HiddenLadder(Ladder):

@@ -155,7 +155,7 @@ class Baddie (Character):
 
     def move(self):
         move = PathFinder.run(self.pos())
-        last_pos = self.pos()
+        self.last_tile = self.pos()
         if move:
             super(Baddie, self).move(*move)
         if self.pos() == Player.main.pos():
@@ -179,6 +179,7 @@ class Baddie (Character):
                 if self.carrying_gold:
                     Tile.draw_gold_for_enemy(self.last_tile)
                     self.carrying_gold = False
+                    print("Number of gold left:", Gold._num_gold)
         super().fall()
 
 char_map = {'6': Player,

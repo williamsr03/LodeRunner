@@ -100,7 +100,7 @@ def play_lr_level(level_file, level_index=1):
         else:
             load_level(level)
 
-        while not Gold.all_taken():
+        while not Gold.all_taken() or not any(baddie.carrying_gold for baddie in Baddie.baddies):
             frame_start_time = time.time()
             key = Drawable._window.checkKey()
             if key in KEYMAP:
