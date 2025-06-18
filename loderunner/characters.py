@@ -6,6 +6,8 @@ from loderunner.tiles import Tile, Empty, Gold
 from loderunner.event import Event
 import csv, os
 from loderunner.config import Config
+import loderunner.util as util
+from loderunner.graphics import Image, Point, GraphWin, Text
 
 #from tiles import Tile, Empty
 #from event import Event
@@ -148,25 +150,36 @@ class Baddie (Character):
         super(Baddie, self).__init__(x, y, 'new_enemy.gif')
         self.move_event = Event(self.move, 30, recurring=True)
         Baddie.baddies.append(self)
+        self.carrying_gold = False
+        self.last_tile = self.pos()
 
     def move(self):
         move = PathFinder.run(self.pos())
         last_pos = self.pos()
         if move:
             super(Baddie, self).move(*move)
-            Tile.tile_at(self.pos()).enemyTake()
-            # if self.fall():
-            #     if self.hasGold:
-            #         Tile.tile_at(last_pos).dropGold()
-            #         self.hasGold = False
         if self.pos() == Player.main.pos():
             Drawable.lost()
+        tile = Tile.tile_at(self.pos())
+        if isinstance(tile, Gold) and not self.carrying_gold:
+            tile.enemy_take()
+            self.carrying_gold = True
         
 
     def die(self):
         self.undraw()
         Event.delete(self.move_event)
         Baddie.baddies.remove(self)
+    
+    def fall(self):
+        # Check if falling into a dug hole (i.e., onto an Empty tile)
+        below = (self._x, self._y + 1)
+        if 0 <= below[0] < Config.LEVEL_WIDTH and 0 <= below[1] < Config.LEVEL_HEIGHT:
+            if isinstance(Tile.tile_at(below), Empty) and not Tile.query(self.pos(), 'grabbable'):
+                if self.carrying_gold:
+                    Tile.draw_gold_for_enemy(self.last_tile)
+                    self.carrying_gold = False
+        super().fall()
 
 char_map = {'6': Player,
             '4': Baddie}

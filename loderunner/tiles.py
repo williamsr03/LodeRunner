@@ -73,6 +73,35 @@ class Tile(Drawable):
         Tile.level[util.index(*coord)].undraw()
         Tile.level[util.index(*coord)] = Empty(coord)
 
+    @staticmethod
+    def draw_gold_for_enemy(coord):
+        """
+        Draws a gold tile at the given coordinate specifically for when
+        an enemy carrying gold is trapped in a dug hole by the player.
+        This does not use the existing draw() method.
+        """
+        idx = util.index(*coord)
+        # Remove any existing tile at this location
+        if 0 <= idx < len(Tile.level):
+            Tile.level[idx].undraw()
+            # Directly create a Gold tile and assign it to the level
+            gold_tile = Gold(coord)
+            Tile.level[idx] = gold_tile
+            # Directly display the gold image at the coordinate
+            if hasattr(gold_tile, 'canvas') and gold_tile.canvas:
+                x, y = coord
+                # You may need to adjust these coordinates based on your tile size
+                tile_size = 32  # or whatever your tile size is
+                px = x * tile_size
+                py = y * tile_size
+                gold_tile.image = gold_tile.canvas.create_image(
+                    px, py, anchor='nw', image=gold_tile._img
+                )
+            else:
+                print("Gold tile has no canvas to draw on!")
+        else:
+            print(f"draw_gold_for_enemy: coord {coord} is out of bounds.")
+
     def __init__(self, coord, img_path=None, properties={}, hidden=False):
         super(Tile, self).__init__(coord, img_path)
         if not hidden:
@@ -112,16 +141,10 @@ class Tile(Drawable):
     def take(self):
         pass
 
-    def enemyTake(self):
-        pass
-
 
 class Empty(Tile):
     def __init__(self, coord):
         super(Empty, self).__init__(coord)
-    
-    def dropGold(self):
-        pass
 
 
 class Brick(Tile):
@@ -131,8 +154,6 @@ class Brick(Tile):
                       'diggable':   True}
         super(Brick, self).__init__(coord, 'new_block.gif', properties)
     
-    def dropGold(self):
-        pass
 
 class solid_Brick(Tile):
     def __init__(self, coord):
@@ -141,8 +162,6 @@ class solid_Brick(Tile):
                       'diggable':   False}
         super(solid_Brick, self).__init__(coord, 'new_solidBlock.gif', properties)
 
-    def dropGold(self):
-        pass
     
 class Ladder(Tile):
     def __init__(self, coord, hidden=False):
@@ -169,13 +188,17 @@ class Gold(Tile):
         Gold._num_gold += 1
         properties = {'takable': True}
         super(Gold, self).__init__(coord, 'new_gold.gif', properties)
+        print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
 
     def take(self):
         Gold._num_gold -= 1
         Tile.clear(self.coord)
 
-    def enemyTake(self):
-        Tile.clear(self.coord)
+    def enemy_take(self):
+        """Called when an enemy takes the gold."""
+        # Remove the gold tile from the map, but do NOT decrement _num_gold
+        Tile.level[util.index(*self.coord)].undraw()
+        Tile.level[util.index(*self.coord)] = Empty(self.coord)
 
 
 class HiddenLadder(Ladder):
