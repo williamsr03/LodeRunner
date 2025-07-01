@@ -57,6 +57,7 @@ class Character (Drawable):
 
         self._x = x
         self._y = y
+        self.fall_counter = 0
 
     def pos(self):
         return self._x, self._y
@@ -86,15 +87,21 @@ class Character (Drawable):
         self._y += dy
         self.move_img(dx, dy)
         if self._y + 1 < Config.LEVEL_HEIGHT:
-            self.fall()
+            self.schedule_fall()
+
+    def schedule_fall(self, frames=3):
+        """Schedule a floating fall after a number of in-game frames."""
+        from loderunner.event import Event
+        Event(self.fall, frames)
 
     def fall(self):
         next_pos = (self._x, self._y+1)
 
         if self._y+1 < Config.LEVEL_HEIGHT:
             if not Tile.query(next_pos, 'standable') and not Tile.query(self.pos(), 'grabbable'):
-                #self.apply_move(0,0)
-                self.apply_move(0,1)
+                self.apply_move(0, 1)
+                # Schedule the next fall if still in the air
+                self.schedule_fall(frames=3)  # Adjust frames for fall speed
 
     def redraw(self):
         self.undraw()
