@@ -140,7 +140,7 @@ class Player (Character):
         y = self._y + 1
 
         if self._y < Config.LEVEL_HEIGHT - 1:
-            if Tile.query((x, y), 'diggable') and isinstance(Tile.tile_at((x, y-1)), Empty):
+            if Tile.query((x, y), 'diggable'): #and isinstance(Tile.tile_at((x, y-1)), Empty):
                 Tile.tile_at((x,y)).hide()
 
                 Event(refill, 120, args=[Tile.tile_at((x, y))])
