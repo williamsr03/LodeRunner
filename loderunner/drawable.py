@@ -37,7 +37,7 @@ class Drawable(object):
 
     def __init__(self, coords, img_path=None):
         if img_path:
-            self._img = Image(Point((coords[0]+1)*Config.CELL_SIZE-1, (coords[1]+1)*Config.CELL_SIZE-1), os.path.join(os.path.dirname(__file__), 'graphics', img_path))
+            self._img = Image(Point((coords[0]+1)*Config.CELL_SIZE-1, (coords[1]+1)*Config.CELL_SIZE-1), os.path.join(os.path.dirname(__file__), 'graphics_images', img_path))
         else:
             self._img = None
 

@@ -15,6 +15,7 @@ from loderunner.drawable import Drawable
 from loderunner.tiles import Tile, Gold, HiddenLadder
 from loderunner.characters import *
 from loderunner.event import Event 
+import datasets
 
 
 def load_level(source, level_index=0):
