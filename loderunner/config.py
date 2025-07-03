@@ -15,7 +15,7 @@ class Config:
 
     @staticmethod
     def config_level(source, level_index=0):
-        print("source: ", source)
+        #print("source: ", source)
         if source.endswith('.json'):
             with open(source, 'r') as f:
                 levels = json.load(f)
