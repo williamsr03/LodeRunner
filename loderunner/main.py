@@ -97,7 +97,7 @@ def play_lr_level(level_file, level_index=1):
 
     for level in LEVELS:
         if isinstance(level, tuple):
-            load_level(level, level[0], level[1])
+            load_level(level, level[0])
         else:
             load_level(level)
 
