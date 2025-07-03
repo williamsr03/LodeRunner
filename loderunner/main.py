@@ -1,8 +1,8 @@
 """
 LodeRunner Clone
 ----------------
-By: Bonnie Ishiguro and Nick Francisci
-for Game Programming: Level 4
+By: Bonnie Ishiguro and Nick Francisci and Reid Williams
+for SURF 2025
 """
 
 import os
