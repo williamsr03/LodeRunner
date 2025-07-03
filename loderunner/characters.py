@@ -98,7 +98,7 @@ class Character (Drawable):
         next_pos = (self._x, self._y+1)
 
         if self._y+1 < Config.LEVEL_HEIGHT:
-            if not Tile.query(next_pos, 'standable') and not Tile.query(self.pos(), 'grabbable') and not Tile.query(next_pos, 'damaging'):
+            if not Tile.query(next_pos, 'standable') and not Tile.query(self.pos(), 'grabbable') and not baddie.pos() == tile.coord:
                 self.apply_move(0, 1)
                 # Schedule the next fall if still in the air
                 self.schedule_fall(frames=3)  # Adjust frames for fall speed
