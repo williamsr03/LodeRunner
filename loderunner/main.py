@@ -96,10 +96,10 @@ def play_lr_level(level_file, level_index=1):
         LEVELS = [int(level_index) if level_index else 1]
 
     for level in LEVELS:
-        # if isinstance(level, tuple):
-        #     load_level(level[0], level[1])
-        # else:
-        load_level(level)
+        if isinstance(level, tuple):
+            load_level(level, level[0], level[1])
+        else:
+            load_level(level)
 
         while not Gold.all_taken() or any(baddie.carrying_gold for baddie in Baddie.baddies):
             frame_start_time = time.time()
