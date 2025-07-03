@@ -100,7 +100,7 @@ class Character (Drawable):
         if self._y+1 < Config.LEVEL_HEIGHT:
             if not Tile.query(next_pos, 'standable') and not Tile.query(self.pos(), 'grabbable'):
                 for baddie in Baddie.baddies:
-                    if baddie.pos() == tile.coor():
+                    if baddie.pos() == next_pos:
                         return
                 self.apply_move(0, 1)
                 # Schedule the next fall if still in the air
