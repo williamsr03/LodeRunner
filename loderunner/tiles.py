@@ -111,7 +111,8 @@ class Tile(Drawable):
                            'standable': False,
                            'climbable': False,
                            'grabbable': False,
-                           'diggable':  False}
+                           'diggable':  False,
+                           'damaging':  False}
 
         for key in properties:
             if key in self.properties:
