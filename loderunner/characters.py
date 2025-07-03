@@ -142,8 +142,9 @@ class Player (Character):
         if self._y < Config.LEVEL_HEIGHT - 1:
             if Tile.query((x, y), 'diggable'): #and isinstance(Tile.tile_at((x, y-1)), Empty):
                 Tile.tile_at((x,y)).hide()
-
-                Event(refill, 120, args=[Tile.tile_at((x, y))])
+                normal_time = 120
+                time_to_refill = normal_time * 1.5
+                Event(refill, time_to_refill, args=[Tile.tile_at((x, y))])
                 for baddie in Baddie.baddies:
                     baddie.fall()
 
