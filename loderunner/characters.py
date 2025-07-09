@@ -164,7 +164,6 @@ class Baddie (Character):
         Baddie.baddies.append(self)
         self.carrying_gold = False
         self.spawn = x, y
-        print("self.spawn", self.spawn)
         self.last_tile = self.pos()
 
     def move(self):
@@ -184,7 +183,6 @@ class Baddie (Character):
         self.undraw()
         Event.delete(self.move_event)
         Baddie.baddies.remove(self)
-        #self.respawn()
 
     def respawn(self):
         # Reset position
