@@ -164,6 +164,7 @@ class Baddie (Character):
         Baddie.baddies.append(self)
         self.carrying_gold = False
         self.spawn = x, y
+        print("self.spawn", self.spawn)
         self.last_tile = self.pos()
 
     def move(self):
@@ -206,7 +207,7 @@ class Baddie (Character):
         self._x, self._y = self.spawn
     
         # Create a new image at the spawn position
-        tile_size = 8  # Assuming TILE_SIZE defines pixel size of each tile
+        tile_size = Config.CELL_SIZE  # Assuming CELL_SIZE defines pixel size of each tile
         pixel_x = self._x * tile_size
         pixel_y = self._y * tile_size
         self._img = Image(Point(pixel_x, pixel_y), Baddie.image_path)
