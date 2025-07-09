@@ -208,8 +208,8 @@ class Baddie (Character):
     
         # Create a new image at the spawn position
         tile_size = Config.CELL_SIZE  # Assuming CELL_SIZE defines pixel size of each tile
-        pixel_x = (self._x  + 0.5) * tile_size
-        pixel_y = (self._y + 0.5) * tile_size
+        pixel_x = (self._x + 1) * tile_size
+        pixel_y = (self._y + 1) * tile_size
         self._img = Image(Point(pixel_x, pixel_y), Baddie.image_path)
     
         # Draw it on the window
