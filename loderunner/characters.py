@@ -157,9 +157,9 @@ class Player (Character):
 
 class Baddie (Character):
     baddies = []
-
+    image_path = os.path.join(os.path.dirname(__file__), 'new_enemy.gif')
     def __init__(self, x, y):
-        super(Baddie, self).__init__(x, y, 'new_enemy.gif')
+        super(Baddie, self).__init__(x, y, Baddie.image_path)
         self.move_event = Event(self.move, 30, recurring=True)
         Baddie.baddies.append(self)
         self.carrying_gold = False
@@ -209,7 +209,7 @@ class Baddie (Character):
         tile_size = Config.CELL_SIZE  # Assuming TILE_SIZE defines pixel size of each tile
         pixel_x = self._x * tile_size
         pixel_y = self._y * tile_size
-        self._img = Image(Point(pixel_x, pixel_y), 'new_enemy.gif')
+        self._img = Image(Point(pixel_x, pixel_y), Baddie.image_path)
     
         # Draw it on the window
         self._img.draw(Drawable._window)
