@@ -162,6 +162,7 @@ class Baddie (Character):
         self.move_event = Event(self.move, 30, recurring=True)
         Baddie.baddies.append(self)
         self.carrying_gold = False
+        self.spawn = (x,y)
         self.last_tile = self.pos()
 
     def move(self):
@@ -181,8 +182,21 @@ class Baddie (Character):
         self.undraw()
         Event.delete(self.move_event)
         Baddie.baddies.remove(self)
-        self.redraw()
+        self.respawn()
+
+    def respawn(self):
+        # Reset position
+        self._x, self._y = self.spawn
     
+        # Redraw the enemy GIF at the spawn location
+        self.draw()
+    
+        # Re-add movement
+        self.move_event = Event(self.move, 30, recurring=True)
+        
+        # Re-add to global baddies list
+        Baddie.baddies.append(self)
+        
     def fall(self):
         # Check if falling into a dug hole (i.e., onto an Empty tile)
         below = (self._x, self._y + 1)
