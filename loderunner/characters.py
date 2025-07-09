@@ -179,8 +179,9 @@ class Baddie (Character):
 
     def die(self):
         self.undraw()
-        Event.delete(self.move_event)
-        Baddie.baddies.remove(self)
+        #Event.delete(self.move_event)
+        #Baddie.baddies.remove(self)
+        self.redraw()
     
     def fall(self):
         # Check if falling into a dug hole (i.e., onto an Empty tile)
