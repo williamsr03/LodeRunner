@@ -163,7 +163,7 @@ class Baddie (Character):
         self.move_event = Event(self.move, 30, recurring=True)
         Baddie.baddies.append(self)
         self.carrying_gold = False
-        self.spawn = (x,y)
+        self.spawn = x, y
         self.last_tile = self.pos()
 
     def move(self):
