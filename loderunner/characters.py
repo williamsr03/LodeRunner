@@ -157,7 +157,7 @@ class Player (Character):
 
 class Baddie (Character):
     baddies = []
-    image_path = os.path.join(os.path.dirname(__file__), 'new_enemy.gif')
+    image_path = os.path.join(os.path.dirname(__file__), 'graphics_images','new_enemy.gif')
     def __init__(self, x, y):
         super(Baddie, self).__init__(x, y, Baddie.image_path)
         self.move_event = Event(self.move, 30, recurring=True)
