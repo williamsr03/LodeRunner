@@ -138,6 +138,7 @@ class Player (Character):
             for baddie in Baddie.baddies:
                 if baddie.pos() == tile.coord:
                     baddie.die()
+                    baddie.respawn()
 
         x = self._x + direction
         y = self._y + 1
@@ -182,7 +183,7 @@ class Baddie (Character):
         self.undraw()
         Event.delete(self.move_event)
         Baddie.baddies.remove(self)
-        self.respawn()
+        #self.respawn()
 
     def respawn(self):
         # Reset position
