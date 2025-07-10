@@ -199,7 +199,7 @@ class Gold(Tile):
         # Remove the gold tile from the map, but do NOT decrement _num_gold
         Tile.level[util.index(*self.coord)].undraw()
         Tile.level[util.index(*self.coord)] = Empty(self.coord)
-        #Gold._num_gold -= 1
+        Gold._num_gold -= 1
 
 
 class HiddenLadder(Ladder):
