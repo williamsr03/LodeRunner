@@ -83,13 +83,13 @@ class Character (Drawable):
                 self.apply_move(dx, dy)
 
     def apply_move(self, dx, dy):
+        if self._y + 1 < Config.LEVEL_HEIGHT:
+            self.schedule_fall(frames=7)
         self._x += dx
         self._y += dy
         self.move_img(dx, dy)
-        if self._y + 1 < Config.LEVEL_HEIGHT:
-            self.schedule_fall()
 
-    def schedule_fall(self, frames):
+    def schedule_fall(self, frames=3):
         """Schedule a floating fall after a number of in-game frames."""
         from loderunner.event import Event
         Event(self.fall, frames)
@@ -104,7 +104,7 @@ class Character (Drawable):
                         return
                 self.apply_move(0, 1)
                 # Schedule the next fall if still in the air
-                self.schedule_fall(frames=3)  # Adjust frames for fall speed
+                self.schedule_fall(frames=7)  # Adjust frames for fall speed
 
     def redraw(self):
         self.undraw()
