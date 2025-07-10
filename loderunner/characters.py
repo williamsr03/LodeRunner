@@ -165,7 +165,7 @@ class Baddie (Character):
         self.carrying_gold = False
         self.spawn = x, y
         self.last_tile = self.pos()
-        self.below = (self._x, self._y + 1)
+        self.below = x, y + 1
 
     def move(self):
         move = PathFinder.run(self.pos())
