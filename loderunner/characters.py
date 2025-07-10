@@ -172,7 +172,8 @@ class Baddie (Character):
         self.last_tile = self.pos()
         below_x = self._x
         below_y = self._y + 1
-        if move and (Tile.query(below_y, 'standable') or Tile.query(self.pos(), 'grabbable')):
+        below = below_x, below_y
+        if move and (Tile.query(below, 'standable') or Tile.query(self.pos(), 'grabbable')):
             new_pos = (self._x + move[0], self._y + move[1])
 
             # Prevent multiple baddies on the same tile
