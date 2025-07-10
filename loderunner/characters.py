@@ -173,6 +173,15 @@ class Baddie (Character):
         below_x = self._x
         below_y = self._y + 1
         below = below_x, below_y
+        
+        if self.pos() == Player.main.pos():
+            Drawable.lost()
+            
+        tile = Tile.tile_at(self.pos())
+        if isinstance(tile, Gold) and not self.carrying_gold:
+            tile.enemy_take()
+            self.carrying_gold = True
+            
         if move and (Tile.query(below, 'standable') or Tile.query(self.pos(), 'grabbable')):
             new_pos = (self._x + move[0], self._y + move[1])
 
@@ -181,12 +190,6 @@ class Baddie (Character):
                 return
                 
             super(Baddie, self).move(*move)
-        if self.pos() == Player.main.pos():
-            Drawable.lost()
-        tile = Tile.tile_at(self.pos())
-        if isinstance(tile, Gold) and not self.carrying_gold:
-            tile.enemy_take()
-            self.carrying_gold = True
         
 
     def die(self):
@@ -210,6 +213,7 @@ class Baddie (Character):
     def redraw_enemy(self):
         # Undraw any existing image
         self.undraw()
+        self.carrying_gold = False
     
         # Reset position to spawn
         self._x, self._y = self.spawn
