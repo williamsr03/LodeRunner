@@ -170,7 +170,7 @@ class Baddie (Character):
         move = PathFinder.run(self.pos())
         super().fall()
         self.last_tile = self.pos()
-        if move and (Tile.query(next_pos, 'standable') or Tile.query(self.pos(), 'grabbable')):
+        if move and (Tile.query(self.pos(), 'standable') or Tile.query(self.pos(), 'grabbable')):
             new_pos = (self._x + move[0], self._y + move[1])
 
             # Prevent multiple baddies on the same tile
