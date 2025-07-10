@@ -170,6 +170,12 @@ class Baddie (Character):
         move = PathFinder.run(self.pos())
         self.last_tile = self.pos()
         if move:
+            new_pos = (self._x + move[0], self._y + move[1])
+
+            # Prevent multiple baddies on the same tile
+            if any(b.pos() == new_pos for b in Baddie.baddies if b is not self):
+                return
+                
             super(Baddie, self).move(*move)
         if self.pos() == Player.main.pos():
             Drawable.lost()
