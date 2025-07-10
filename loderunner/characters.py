@@ -173,10 +173,7 @@ class Baddie (Character):
         below_x = self._x
         below_y = self._y + 1
         below = below_x, below_y
-        
-        if self.pos() == Player.main.pos():
-            Drawable.lost()
-            
+
         tile = Tile.tile_at(self.pos())
         if isinstance(tile, Gold) and not self.carrying_gold:
             tile.enemy_take()
@@ -190,7 +187,9 @@ class Baddie (Character):
                 return
                 
             super(Baddie, self).move(*move)
-        
+            
+        if self.pos() == Player.main.pos():
+            Drawable.lost()
 
     def die(self):
         self.undraw()
