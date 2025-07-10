@@ -122,6 +122,7 @@ def play_lr_level(level_file, level_index=1):
         Gold._num_gold = 0
 
 if __name__ == '__main__':
+    Gold._num_gold = 0
     play_lr_level(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 1)
     Gold._num_gold = 0
 # If you want to run the game directly, uncomment the following line:
