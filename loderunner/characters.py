@@ -168,7 +168,7 @@ class Baddie (Character):
 
     def move(self):
         move = PathFinder.run(self.pos())
-        super.fall()
+        super().fall()
         self.last_tile = self.pos()
         if move:
             new_pos = (self._x + move[0], self._y + move[1])
