@@ -4,6 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from loderunner.config import Config
 from loderunner.graphics import Image, Point, GraphWin, Text
+from loderunner.tiles import *
 #from config import Config
 #from graphics import Image, Point, GraphWin, Text
 
@@ -25,6 +26,7 @@ class Drawable(object):
         t.setTextColor('red')
         t.draw(Drawable._window)
         Drawable._window.getKey()
+        Gold._num_gold = 0
         exit(0)
 
     @staticmethod
@@ -33,6 +35,7 @@ class Drawable(object):
         t.setSize(36)
         t.setTextColor('red')
         t.draw(Drawable._window)
+        Gold._num_gold = 0
         time.sleep(2)
 
     def __init__(self, coords, img_path=None):
