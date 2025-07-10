@@ -192,13 +192,14 @@ class Gold(Tile):
     def take(self):
         Gold._num_gold -= 1
         Tile.clear(self.coord)
+        print("Number of gold left: ", Gold._num_gold)
 
     def enemy_take(self):
         """Called when an enemy takes the gold."""
         # Remove the gold tile from the map, but do NOT decrement _num_gold
         Tile.level[util.index(*self.coord)].undraw()
         Tile.level[util.index(*self.coord)] = Empty(self.coord)
-        Gold._num_gold -= 1
+        #Gold._num_gold -= 1
 
 
 class HiddenLadder(Ladder):
