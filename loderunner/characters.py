@@ -89,7 +89,7 @@ class Character (Drawable):
         self._y += dy
         self.move_img(dx, dy)
 
-    def schedule_fall(self, frames=3):
+    def schedule_fall(self, frames=7):
         """Schedule a floating fall after a number of in-game frames."""
         from loderunner.event import Event
         Event(self.fall, frames)
@@ -168,6 +168,7 @@ class Baddie (Character):
 
     def move(self):
         move = PathFinder.run(self.pos())
+        super.fall()
         self.last_tile = self.pos()
         if move:
             new_pos = (self._x + move[0], self._y + move[1])
