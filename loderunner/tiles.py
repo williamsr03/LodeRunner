@@ -187,7 +187,7 @@ class Gold(Tile):
         Gold._num_gold += 1
         properties = {'takable': True}
         super(Gold, self).__init__(coord, 'new_gold.gif', properties)
-        #print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
+        print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
 
     def take(self):
         Gold._num_gold -= 1
