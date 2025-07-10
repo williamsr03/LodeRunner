@@ -150,7 +150,7 @@ class Player (Character):
                 time_to_refill = normal_time * 1.5
                 Event(refill, time_to_refill, args=[Tile.tile_at((x, y))])
                 for baddie in Baddie.baddies:
-                    baddie.fall()
+                    baddie.fall_and_redraw()
 
 
 
@@ -213,7 +213,7 @@ class Baddie (Character):
         # Draw it on the window
         self._img.draw(Drawable._window)
         
-    def fall(self):
+    def fall_and_redraw(self):
         # Check if falling into a dug hole (i.e., onto an Empty tile)
         below = (self._x, self._y + 1)
         position = (self._x, self._y)
