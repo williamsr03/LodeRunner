@@ -25,7 +25,7 @@ class Drawable(object):
         t.setTextColor('red')
         t.draw(Drawable._window)
         Drawable._window.getKey()
-        #exit(0)
+        exit(0)
 
     @staticmethod
     def won():
