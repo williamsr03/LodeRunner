@@ -199,7 +199,7 @@ class Baddie (Character):
         if self.pos() == Player.main.pos():
             for baddie in Baddie.baddies:
                 for tile in Tile.level:
-                    tile.clear(baddie.self.pos())  # This should call undraw logic
+                    tile.clear(baddie.pos())  # This should call undraw logic
                 Tile.level.clear()
             Drawable.lost()
 
