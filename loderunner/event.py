@@ -26,6 +26,11 @@ class Event:
 		for event_list in Event._queue.values():
 			if event in event_list:
 				event_list.remove(event)
+	@staticmethod
+	def clear():
+	    print(f"Clearing all events at frame {Event._frame}")
+	    Event._queue.clear()
+	    Event._frame = 0
 
 	def __init__(self, func, frames, args=[], recurring=None):
 		self.func = func
