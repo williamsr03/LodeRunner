@@ -29,7 +29,7 @@ class Tile(Drawable):
         row_num = 0
         Tile.level.clear()
         Gold._num_gold = 0
-        print("Resetting level!")
+        #print("Resetting level!")
         # If source is an int, treat as CSV level number
         if isinstance(source, int):
             file_path = os.path.join('levels', f'level{source}.csv')
@@ -195,12 +195,12 @@ class Gold(Tile):
         Gold._num_gold += 1
         properties = {'takable': True}
         super(Gold, self).__init__(coord, 'new_gold.gif', properties)
-        print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
+        #print(f"Gold created at {coord}, total gold: {Gold._num_gold}")
 
     def take(self):
         Gold._num_gold -= 1
         Tile.clear(self.coord)
-        print("Number of gold left: ", Gold._num_gold)
+        #print("Number of gold left: ", Gold._num_gold)
 
     def enemy_take(self):
         """Called when an enemy takes the gold."""
