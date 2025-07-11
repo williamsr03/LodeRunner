@@ -126,7 +126,7 @@ class Player (Character):
         for baddie in Baddie.baddies:
             if baddie.pos() == self.pos():
                 for baddie in Baddie.baddies:
-                    baddie.undraw()
+                    baddie.die()
                 Baddie.baddies.clear()
                 Drawable.lost()
 
@@ -136,7 +136,7 @@ class Player (Character):
             tile.show()
             if Player.main.pos() == tile.coord:
                 for baddie in Baddie.baddies:
-                    baddie.undraw()
+                    baddie.die()
                 Baddie.baddies.clear()
                 Drawable.lost()
             for baddie in Baddie.baddies:
@@ -194,7 +194,7 @@ class Baddie (Character):
             
         if self.pos() == Player.main.pos():
             for baddie in Baddie.baddies:
-                baddie.undraw()
+                baddie.die()
             Baddie.baddies.clear()
             Drawable.lost()
 
