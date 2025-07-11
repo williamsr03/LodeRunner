@@ -24,7 +24,7 @@ def load_level(source, level_index=0):
     Drawable.recreateWindow()
     Tile.load_level(source, level_index)
     Character.load_characters(source, level_index)
-    print("Number of baddies after level load:", len(Baddie.baddies))
+    #print("Number of baddies after level load:", len(Baddie.baddies))
 
 KEYMAP = {
     'Left':     'Player.main.move(-1, 0)',
@@ -41,7 +41,7 @@ def main():
 
     # Get file and optional level index from command line
     if len(sys.argv) < 2:
-        print("Usage: python main.py <level_file> [level_index]")
+        #print("Usage: python main.py <level_file> [level_index]")
         sys.exit(1)
 
     level_file = sys.argv[1]
@@ -123,7 +123,7 @@ def play_lr_level(level_file, level_index=1):
         for baddie in Baddie.baddies:
             baddie.die()
         Baddie.baddies = []
-        print("Resetting baddies in main!")
+        #print("Resetting baddies in main!")
         Drawable.won()
 
 if __name__ == '__main__':
