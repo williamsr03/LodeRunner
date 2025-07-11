@@ -41,6 +41,10 @@ class Tile(Drawable):
 
         # If source is a JSON file path, use JSON
         elif isinstance(source, str) and source.endswith('.json'):
+            # Reset all persistent state
+            Tile.level.clear()
+            Baddie.baddies.clear()
+            Gold._num_gold = 0
             with open(source, 'r') as f:
                 levels = json.load(f)
                 # Expecting a 'scene' key with a 2D array of tile codes
