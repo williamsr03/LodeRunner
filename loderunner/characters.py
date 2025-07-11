@@ -23,6 +23,7 @@ class Character (Drawable):
         for baddie in Baddie.baddies:
             baddie.die()
         Baddie.baddies = []
+        print("Resetting baddies!")
 
         # If source is an int, treat as CSV level number
         if isinstance(source, int):
@@ -38,7 +39,6 @@ class Character (Drawable):
         # If source is a JSON file path, use JSON
         elif isinstance(source, str) and source.endswith('.json'):
             import json
-            Baddie.baddie.clear()
             with open(source, 'r') as f:
                 levels = json.load(f)
                 # Expecting a 'scene' key with a 2D array of tile codes
