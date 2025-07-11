@@ -33,7 +33,7 @@ KEYMAP = {
     'Down':     'Player.main.move(0, 1)',
     'a':        'Player.main.dig(-1)',
     'z':        'Player.main.dig(1)',
-    'q':        'exit(0)'
+    'q':        'Drawable._window.close()'
 }
 
 def main():
