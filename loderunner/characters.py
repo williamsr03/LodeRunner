@@ -20,11 +20,7 @@ class Character (Drawable):
 
     @staticmethod
     def load_characters(source, level_index=0):
-        Baddie.baddies.clear()
-        for baddie in Baddie.baddies:
-            baddie.die()
-        Baddie.baddies = []
-        print("Resetting baddies!")
+        print("Number of baddies before level load:", len(Baddie.baddies))
 
         # If source is an int, treat as CSV level number
         if isinstance(source, int):
