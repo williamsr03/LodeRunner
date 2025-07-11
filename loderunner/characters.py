@@ -129,9 +129,9 @@ class Player (Character):
         Tile.tile_at(self.pos()).take()
         for baddie in Baddie.baddies:
             if baddie.pos() == self.pos():
-                for tile in Tile.level:
-                    tile.clear()  # This should call undraw logic
-                Tile.level.clear()
+                for baddie in Baddie.baddies:
+                    baddie.undraw()
+                Baddie.baddies.clear()
                 Drawable.lost()
 
     def dig(self, direction):
@@ -139,9 +139,9 @@ class Player (Character):
         def refill(tile):    
             tile.show()
             if Player.main.pos() == tile.coord:
-                for tile in Tile.level:
-                    tile.clear()  # This should call undraw logic
-                Tile.level.clear()
+                for baddie in Baddie.baddies:
+                    baddie.undraw()
+                Baddie.baddies.clear()
                 Drawable.lost()
             for baddie in Baddie.baddies:
                 if baddie.pos() == tile.coord:
@@ -198,9 +198,8 @@ class Baddie (Character):
             
         if self.pos() == Player.main.pos():
             for baddie in Baddie.baddies:
-                for tile in Tile.level:
-                    tile.clear(baddie.pos())  # This should call undraw logic
-                Tile.level.clear()
+                baddie.undraw()
+            Baddie.baddies.clear()
             Drawable.lost()
 
     def die(self):
