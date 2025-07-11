@@ -27,7 +27,9 @@ class Tile(Drawable):
     def load_level(source, level_index=0):
         Tile.level = []
         row_num = 0
-
+        Tile.level.clear()
+        Gold._num_gold = 0
+        print("Resetting level!")
         # If source is an int, treat as CSV level number
         if isinstance(source, int):
             file_path = os.path.join('levels', f'level{source}.csv')
@@ -42,8 +44,6 @@ class Tile(Drawable):
         # If source is a JSON file path, use JSON
         elif isinstance(source, str) and source.endswith('.json'):
             # Reset all persistent state
-            Tile.level.clear()
-            Gold._num_gold = 0
             with open(source, 'r') as f:
                 levels = json.load(f)
                 # Expecting a 'scene' key with a 2D array of tile codes
