@@ -50,6 +50,11 @@ class Tile(Drawable):
                 scene = levels[level_index].get('scene')
                 if scene is None:
                     raise ValueError("JSON level missing 'scene' key")
+
+                for tile in Tile.level:
+                    tile.clear()  # This should call undraw logic
+                Tile.level.clear()
+                
                 for row in scene:
                     Tile.level.extend([
                         Tile.tile_map.get(str(elem), Empty)((index, row_num))
