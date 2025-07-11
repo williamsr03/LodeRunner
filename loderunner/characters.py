@@ -20,6 +20,7 @@ class Character (Drawable):
 
     @staticmethod
     def load_characters(source, level_index=0):
+        Baddie.baddies.clear()
         for baddie in Baddie.baddies:
             baddie.die()
         Baddie.baddies = []
