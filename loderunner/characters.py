@@ -197,9 +197,10 @@ class Baddie (Character):
             super(Baddie, self).move(*move)
             
         if self.pos() == Player.main.pos():
-            for tile in Tile.level:
-                tile.clear()  # This should call undraw logic
-            Tile.level.clear()
+            for baddie in Baddie.baddies:
+                for tile in Tile.level:
+                    tile.clear(baddie.self.pos())  # This should call undraw logic
+                Tile.level.clear()
             Drawable.lost()
 
     def die(self):
