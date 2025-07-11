@@ -22,8 +22,12 @@ class Drawable(object):
         t.setSize(36)
         t.setTextColor('red')
         t.draw(Drawable._window)
-        Drawable._window.getKey()
-        exit(0)
+        # wait for user to press 'q' to quit the game
+        while True:
+            key = Drawable._window.getKey()
+            if key.lower() == 'q':
+                Drawable._window.close()
+                break
 
     @staticmethod
     def won():
@@ -31,7 +35,12 @@ class Drawable(object):
         t.setSize(36)
         t.setTextColor('red')
         t.draw(Drawable._window)
-        time.sleep(2)
+        # wait for user to press 'q' to quit the game
+        while True:
+            key = Drawable._window.getKey()
+            if key.lower() == 'q':
+                Drawable._window.close()
+                break
 
     def __init__(self, coords, img_path=None):
         if img_path:
