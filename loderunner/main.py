@@ -118,12 +118,13 @@ def play_lr_level(level_file, level_index=1):
             frame_time = time.time() - frame_start_time
             if frame_time < frame_duration:
                 time.sleep(frame_duration - frame_time)
+        for baddie in Baddie.baddies:
+            baddie.die()
+        Baddie.baddies = []
+        print("Resetting baddies in main!")
         Drawable.won()
-        Gold._num_gold = 0
 
 if __name__ == '__main__':
-    Gold._num_gold = 0
     play_lr_level(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 1)
-    Gold._num_gold = 0
 # If you want to run the game directly, uncomment the following line:
     #main()
