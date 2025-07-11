@@ -128,6 +128,7 @@ class Player (Character):
                 for baddie in Baddie.baddies:
                     baddie.die()
                 Baddie.baddies.clear()
+                print("Lost 1")
                 Drawable.lost()
 
     def dig(self, direction):
@@ -138,6 +139,7 @@ class Player (Character):
                 for baddie in Baddie.baddies:
                     baddie.die()
                 Baddie.baddies.clear()
+                print("Lost 2")
                 Drawable.lost()
             for baddie in Baddie.baddies:
                 if baddie.pos() == tile.coord:
@@ -196,6 +198,7 @@ class Baddie (Character):
             for baddie in Baddie.baddies:
                 baddie.die()
             Baddie.baddies.clear()
+            print("Lost 3")
             Drawable.lost()
 
     def die(self):
