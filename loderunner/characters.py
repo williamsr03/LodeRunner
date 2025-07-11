@@ -20,7 +20,7 @@ class Character (Drawable):
 
     @staticmethod
     def load_characters(source, level_index=0):
-        print("Number of baddies before level load:", len(Baddie.baddies))
+        #print("Number of baddies before level load:", len(Baddie.baddies))
         # Kill and clear all existing baddies
         for baddie in Baddie.baddies[:]:
             baddie.die()
@@ -132,7 +132,6 @@ class Player (Character):
                 for baddie in Baddie.baddies:
                     baddie.die()
                 Baddie.baddies.clear()
-                print("Lost 1")
                 Drawable.lost()
 
     def dig(self, direction):
@@ -143,7 +142,6 @@ class Player (Character):
                 for baddie in Baddie.baddies:
                     baddie.die()
                 Baddie.baddies.clear()
-                print("Lost 2")
                 Drawable.lost()
             for baddie in Baddie.baddies:
                 if baddie.pos() == tile.coord:
@@ -202,7 +200,6 @@ class Baddie (Character):
             for baddie in Baddie.baddies:
                 baddie.die()
             Baddie.baddies.clear()
-            print("Lost 3")
             Drawable.lost()
 
     def die(self):
