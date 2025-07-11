@@ -26,8 +26,7 @@ class Drawable(object):
         while True:
             key = Drawable._window.getKey()
             if key.lower() == 'q':
-                win.close()    # Close window when done
-                #Drawable._window.close()
+                Drawable._window.close()
                 break
 
     @staticmethod
