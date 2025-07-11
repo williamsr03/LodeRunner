@@ -19,6 +19,7 @@ import datasets
 
 
 def load_level(source, level_index=0):
+    Event.clear()
     Config.config_level(source, level_index)
     Drawable.recreateWindow()
     Tile.load_level(source, level_index)
