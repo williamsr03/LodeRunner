@@ -28,7 +28,7 @@ class Event:
 				event_list.remove(event)
 	@staticmethod
 	def clear():
-	    print(f"Clearing all events at frame {Event._frame}")
+	    #print(f"Clearing all events at frame {Event._frame}")
 	    Event._queue.clear()
 	    Event._frame = 0
 
