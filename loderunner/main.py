@@ -23,6 +23,7 @@ def load_level(source, level_index=0):
     Drawable.recreateWindow()
     Tile.load_level(source, level_index)
     Character.load_characters(source, level_index)
+    print("Number of baddies after level load:", len(Baddie.baddies))
 
 KEYMAP = {
     'Left':     'Player.main.move(-1, 0)',
